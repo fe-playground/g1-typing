@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TypingHeader></TypingHeader>
+    <TypingInputUser></TypingInputUser>
+    <TypingTimer></TypingTimer>
+    <TypingInputText></TypingInputText>
+    <TypingRank></TypingRank>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TypingHeader from './components/TypingHeader.vue'
+import TypingInputUser from './components/TypingInputUser.vue'
+import TypingInputText from './components/TypingInputText.vue'
+import TypingTimer from './components/TypingTimer.vue'
+import TypingRank from './components/TypingRank.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TypingHeader,
+    TypingInputUser,
+    TypingInputText,
+    TypingTimer,
+    TypingRank
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
