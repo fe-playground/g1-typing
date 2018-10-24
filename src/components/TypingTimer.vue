@@ -1,15 +1,21 @@
 <template>
-    <div>
-        00:00:12
+    <div class="typingTimer">
+        <strong>{{ time }}</strong>
     </div>
 </template>
 
 <script>
 export default {
-
+    props: {
+        time: String
+    }
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+.typingTimer {
+    margin: 2rem 0;
+    text-align: right;
+    font-size: 1.2rem;
+}
 </style>

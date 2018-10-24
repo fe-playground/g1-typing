@@ -4,8 +4,9 @@
     </header>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
-    color: forestgreen;
+    margin: 3rem 0;
+    color: seagreen;
 }
 </style>

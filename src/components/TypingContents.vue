@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <ul>
+    <div class="contents">
+        <ul class="textList">
           <TypingInputText 
             v-for="(text, index) in data"
             :key="index"
@@ -23,7 +23,10 @@ export default {
     data: {
       type: Array,
       required: true
-    }
+    },
+    stopTimer: Function,
+    resetTimer: Function,
+    updateRank: Function
   },
   data() {
     return {
@@ -33,11 +36,21 @@ export default {
   methods: {
     complete() {
       this.activeIdx++;
+      if(this.activeIdx > this.data.length) {
+        this.stopTimer();
+        this.updateRank();
+        this.resetTimer();
+      }
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+.contents {
+  padding: 1rem 0;
+  .textList {
+    text-align: left;
+  }
+}
 </style>
