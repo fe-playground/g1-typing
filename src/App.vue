@@ -58,7 +58,6 @@ export default {
       this.myTimer = setInterval( () => {
         this.time++;
         this.updateRank();
-        this.sortRank();
       }, 1000);
     },
     stopTimer() {

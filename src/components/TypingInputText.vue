@@ -41,11 +41,7 @@ export default {
   },
   updated() {
     if(this.isActive) this.$refs.input.focus();
-  },
-  watch: {
-    isSuccess() {
-      if(this.isSuccess) this.input = '';
-    }
+    if(this.isSuccess) this.input = '';
   }
 }
 </script>
