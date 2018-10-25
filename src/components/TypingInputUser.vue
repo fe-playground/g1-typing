@@ -17,8 +17,9 @@
 <script>
 export default {
     props: {
-        regUser: Function,
-        startTimer: Function
+        startTyping: Function,
+        startTimer: Function,
+        isSuccess: Boolean
     },
     data() {
         return {
@@ -28,8 +29,13 @@ export default {
     },
     methods: {
         start() {
-            this.regUser(this.user);
+            this.startTyping(this.user);
             this.startTimer();
+        }
+    },
+    watch: {
+        isSuccess() {
+            if(this.isSuccess) this.user = '';
         }
     }
 }

@@ -22,5 +22,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+li{
+    &:nth-child(1) {
+        color:goldenrod;
+    }
+    &:nth-child(2) {
+        color:darkgray;
+    }
+    &:nth-child(3) {
+        color:brown;
+    }
+}
 </style>

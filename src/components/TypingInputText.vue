@@ -8,8 +8,9 @@
         type="text"
         placeholder="위 문장을 입력하세요"
         @keyup="typing"
-        :readonly="isComplete"
+        :readonly="isSuccess || !isActive"
         ref="input"
+        v-model="input"
       />
     </div>
   </li>
@@ -21,11 +22,13 @@ export default {
     text: String,
     isActive: Boolean,
     complete: Function,
-    activeIdx: Number
+    activeIdx: Number,
+    isSuccess: Boolean
   },
   data() {
     return {
-      isComplete: false
+      isComplete: false,
+      input: ''
     }
   },
   methods: {
@@ -38,6 +41,11 @@ export default {
   },
   updated() {
     if(this.isActive) this.$refs.input.focus();
+  },
+  watch: {
+    isSuccess() {
+      if(this.isSuccess) this.input = '';
+    }
   }
 }
 </script>

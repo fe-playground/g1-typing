@@ -7,6 +7,7 @@
             :text="text"
             :isActive="activeIdx === index"
             :complete="complete"
+            :isSuccess="isSuccess"
           />
         </ul>
     </div>
@@ -25,8 +26,8 @@ export default {
       required: true
     },
     stopTimer: Function,
-    resetTimer: Function,
-    updateRank: Function
+    resetTyping: Function,
+    isSuccess: Boolean
   },
   data() {
     return {
@@ -38,8 +39,8 @@ export default {
       this.activeIdx++;
       if(this.activeIdx > this.data.length) {
         this.stopTimer();
-        this.updateRank();
-        this.resetTimer();
+        this.resetTyping();
+        this.activeIdx = 0;
       }
     }
   }

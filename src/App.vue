@@ -3,16 +3,17 @@
     <TypingHeader></TypingHeader>
     <TypingInputUser
       :user="user"
-      :regUser="regUser"
+      :startTyping="startTyping"
       :startTimer="startTimer"
+      :isSuccess="isSuccess"
     />
     <TypingTimer
       :time="time|hhmmss"></TypingTimer>
     <TypingContents
       :data="data"
       :stopTimer="stopTimer"
-      :resetTimer="resetTimer"
-      :updateRank="updateRank"
+      :isSuccess="isSuccess"
+      :resetTyping="resetTyping"
     />
     <TypingRank
       :rank="rank"
@@ -43,33 +44,53 @@ export default {
       user: '',
       time: 0,
       myTimer: null,
-      rank: []
+      rank: [],
+      isSuccess: true
     }
   },
   methods: {
-    regUser(user) {
+    startTyping(user) {
       this.user = user;
+      this.isSuccess = false;
+      this.insertRank();
     },
     startTimer() {
       this.myTimer = setInterval( () => {
         this.time++;
+        this.updateRank();
+        this.sortRank();
       }, 1000);
     },
     stopTimer() {
       clearInterval(this.myTimer);
     },
-    resetTimer() {
-      this.stopTimer();
-      this.time = 0;
-    },
-    updateRank() {
-      this.rank = [
+    insertRank() {
+      let newRank = [
         ...this.rank,
         {
           user: this.user,
           time: this.time
         }
-      ]
+      ];
+      this.rank = this.sortRank(newRank);
+    },
+    updateRank() {
+      let newRank = this.rank.map(user => user.user === this.user ? { ...user, time: this.time } : user);
+      this.rank = this.sortRank(newRank);
+    },
+    sortRank(rank) {
+      return rank.sort((a, b) => a.time - b.time);
+    },
+    resetTyping() {
+      this.isSuccess = true;
+    }
+  },
+  watch: {
+    isSuccess() {
+      if(this.isSuccess) {
+        this.user = '';
+        this.time = 0;
+      }
     }
   }
 }
