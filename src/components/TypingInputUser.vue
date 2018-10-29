@@ -2,9 +2,8 @@
     <div class="inputBox shadow">
         <input
             type="text"
-            id="user"
-            v-model="user"
-            :readonly="isStart"
+            v-model="name"
+            :readonly="!this.$store.state.isSuccess"
             @keyup.enter="start"
             placeholder="사용자 이름 입력"
         />
@@ -15,28 +14,42 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
-    props: {
-        startTyping: Function,
-        startTimer: Function,
-        isSuccess: Boolean
-    },
     data() {
-        return {
-            user: '',
-            isStart: false
-        }
+      return {
+        name: ''
+      }
+    },
+    computed: {
+      ...mapState([
+        'user',
+        'isSuccess',
+        'rank'
+      ])
     },
     methods: {
-        start() {
-            this.startTyping(this.user);
-            this.startTimer();
+      ...mapActions([
+        'startTyping'
+      ]),
+      ...mapMutations([
+        'startTimer'
+      ]),
+      start() {
+        if(this.checkDuplicatedName(this.name)) {
+          alert('이미 등록된 이름입니다.')
+        } else {
+          this.$store.dispatch('startTyping', this.name);
+          this.$store.commit('startTimer');
         }
+      },
+      checkDuplicatedName(name) {
+        return this.rank.some(user => user.user === name);
+      }
     },
-    watch: {
-        isSuccess() {
-            if(this.isSuccess) this.user = '';
-        }
+    updated() {
+      if(this.isSuccess && this.user) this.name = '';
     }
 }
 </script>

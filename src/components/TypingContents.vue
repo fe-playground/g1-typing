@@ -7,34 +7,34 @@
             :text="text"
             :isActive="activeIdx === index"
             :complete="complete"
-            :isSuccess="isSuccess"
           />
         </ul>
     </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import TypingInputText from './TypingInputText.vue'
 
 export default {
   components: {
     TypingInputText
   },
-  props: {
-    data: {
-      type: Array,
-      required: true
-    },
-    stopTimer: Function,
-    resetTyping: Function,
-    isSuccess: Boolean
-  },
   data() {
     return {
       activeIdx: 0
     }
   },
+  computed: {
+    ...mapState([
+      'data'
+    ])
+  },
   methods: {
+    ...mapMutations([
+      'stopTimer',
+      'resetTyping'
+    ]),
     complete() {
       this.activeIdx++;
       if(this.activeIdx > this.data.length) {
@@ -43,6 +43,9 @@ export default {
         this.activeIdx = 0;
       }
     }
+  },
+  created() {
+    this.$store.dispatch('getTextData');
   }
 }
 </script>

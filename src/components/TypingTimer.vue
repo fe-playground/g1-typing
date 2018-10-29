@@ -1,16 +1,8 @@
 <template>
     <div class="typingTimer">
-        <strong>{{ time }}</strong>
+        <strong>{{ this.$store.state.time | hhmmss }}</strong>
     </div>
 </template>
-
-<script>
-export default {
-    props: {
-        time: String
-    }
-}
-</script>
 
 <style scoped lang="scss">
 .typingTimer {

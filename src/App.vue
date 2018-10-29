@@ -1,23 +1,10 @@
 <template>
   <div id="app">
-    <TypingHeader></TypingHeader>
-    <TypingInputUser
-      :user="user"
-      :startTyping="startTyping"
-      :startTimer="startTimer"
-      :isSuccess="isSuccess"
-    />
-    <TypingTimer
-      :time="time|hhmmss"></TypingTimer>
-    <TypingContents
-      :data="data"
-      :stopTimer="stopTimer"
-      :isSuccess="isSuccess"
-      :resetTyping="resetTyping"
-    />
-    <TypingRank
-      :rank="rank"
-    />
+    <TypingHeader/>
+    <TypingInputUser/>
+    <TypingTimer/>
+    <TypingContents/>
+    <TypingRank/>
   </div>
 </template>
 
@@ -27,7 +14,6 @@ import TypingInputUser from './components/TypingInputUser.vue'
 import TypingContents from './components/TypingContents.vue'
 import TypingTimer from './components/TypingTimer.vue'
 import TypingRank from './components/TypingRank.vue'
-import data from './assets/data.json'
 
 export default {
   name: 'app',
@@ -40,7 +26,6 @@ export default {
   },
   data() {
     return {
-      data,
       user: '',
       time: 0,
       myTimer: null,
@@ -49,40 +34,40 @@ export default {
     }
   },
   methods: {
-    startTyping(user) {
-      this.user = user;
-      this.isSuccess = false;
-      this.insertRank();
-    },
-    startTimer() {
-      this.myTimer = setInterval( () => {
-        this.time++;
-        this.updateRank();
-      }, 1000);
-    },
-    stopTimer() {
-      clearInterval(this.myTimer);
-    },
-    insertRank() {
-      let newRank = [
-        ...this.rank,
-        {
-          user: this.user,
-          time: this.time
-        }
-      ];
-      this.rank = this.sortRank(newRank);
-    },
-    updateRank() {
-      let newRank = this.rank.map(user => user.user === this.user ? { ...user, time: this.time } : user);
-      this.rank = this.sortRank(newRank);
-    },
-    sortRank(rank) {
-      return rank.sort((a, b) => a.time - b.time);
-    },
-    resetTyping() {
-      this.isSuccess = true;
-    }
+    // startTyping(user) {
+    //   this.user = user;
+    //   this.isSuccess = false;
+    //   this.insertRank();
+    // },
+    // startTimer() {
+    //   this.myTimer = setInterval( () => {
+    //     this.time++;
+    //     this.updateRank();
+    //   }, 1000);
+    // },
+    // stopTimer() {
+    //   clearInterval(this.myTimer);
+    // },
+    // insertRank() {
+    //   let newRank = [
+    //     ...this.rank,
+    //     {
+    //       user: this.user,
+    //       time: this.time
+    //     }
+    //   ];
+    //   this.rank = this.sortRank(newRank);
+    // },
+    // updateRank() {
+    //   let newRank = this.rank.map(user => user.user === this.user ? { ...user, time: this.time } : user);
+    //   this.rank = this.sortRank(newRank);
+    // },
+    // sortRank(rank) {
+    //   return rank.sort((a, b) => a.time - b.time);
+    // },
+    // resetTyping() {
+    //   this.isSuccess = true;
+    // }
   },
   watch: {
     isSuccess() {

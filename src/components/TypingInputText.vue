@@ -8,7 +8,7 @@
         type="text"
         placeholder="위 문장을 입력하세요"
         @keyup="typing"
-        :readonly="isSuccess || !isActive"
+        :readonly="this.getSuccess || !isActive"
         ref="input"
         v-model="input"
       />
@@ -17,13 +17,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     text: String,
     isActive: Boolean,
-    complete: Function,
-    activeIdx: Number,
-    isSuccess: Boolean
+    complete: Function
   },
   data() {
     return {
@@ -39,9 +39,12 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['getSuccess'])
+  },
   updated() {
     if(this.isActive) this.$refs.input.focus();
-    if(this.isSuccess) this.input = '';
+    if(this.success) this.input = '';
   }
 }
 </script>
@@ -58,7 +61,7 @@ export default {
     .inputBox {
       padding: 0 .5rem;
       &.active {
-        border-color: sandybrown;
+        border: 1px solid sandybrown;
       }
       input {
         width: 100%;
