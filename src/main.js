@@ -4,6 +4,8 @@ import { store } from './store/store'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$EventBus = new Vue();
+
 Vue.filter('hhmmss', function (time) {
   let hh = Math.floor(time / 3600);
   let mm = Math.floor((time - (hh * 3600)) / 60);

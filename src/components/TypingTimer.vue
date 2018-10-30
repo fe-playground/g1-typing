@@ -1,8 +1,21 @@
 <template>
     <div class="typingTimer">
-        <strong>{{ this.$store.state.time | hhmmss }}</strong>
+        <strong>{{ time | hhmmss }}</strong>
     </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    computed: {
+        ...mapState([
+            'time'
+        ])
+    }
+
+}
+</script>
 
 <style scoped lang="scss">
 .typingTimer {

@@ -3,7 +3,7 @@
         <input
             type="text"
             v-model="name"
-            :readonly="!this.$store.state.isSuccess"
+            :readonly="!isSuccess"
             @keyup.enter="start"
             placeholder="사용자 이름 입력"
         />
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
     data() {
@@ -37,7 +37,9 @@ export default {
         'startTimer'
       ]),
       start() {
-        if(this.checkDuplicatedName(this.name)) {
+        if(!this.name) {
+          alert('사용자 이름을 등록해주세요.')
+        } else if(this.checkDuplicatedName(this.name)) {
           alert('이미 등록된 이름입니다.')
         } else {
           this.$store.dispatch('startTyping', this.name);
@@ -48,8 +50,10 @@ export default {
         return this.rank.some(user => user.user === name);
       }
     },
-    updated() {
-      if(this.isSuccess && this.user) this.name = '';
+    watch: {
+      isSuccess() {
+        if(this.isSuccess) this.name = '';
+      }
     }
 }
 </script>

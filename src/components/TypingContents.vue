@@ -6,7 +6,6 @@
             :key="index"
             :text="text"
             :isActive="activeIdx === index"
-            :complete="complete"
           />
         </ul>
     </div>
@@ -20,29 +19,17 @@ export default {
   components: {
     TypingInputText
   },
-  data() {
-    return {
-      activeIdx: 0
-    }
-  },
   computed: {
     ...mapState([
-      'data'
+      'data',
+      'activeIdx'
     ])
   },
   methods: {
     ...mapMutations([
       'stopTimer',
       'resetTyping'
-    ]),
-    complete() {
-      this.activeIdx++;
-      if(this.activeIdx > this.data.length) {
-        this.stopTimer();
-        this.resetTyping();
-        this.activeIdx = 0;
-      }
-    }
+    ])
   },
   created() {
     this.$store.dispatch('getTextData');

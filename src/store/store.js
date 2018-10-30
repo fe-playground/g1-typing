@@ -12,18 +12,8 @@ export const store = new Vuex.Store({
     time: 0,
     myTimer: null,
     rank: [],
-    isSuccess: true
-  },
-  getters: {
-    getData(state) {
-      return state.data;
-    },
-    getUser(state) {
-      return state.user;
-    },
-    getSuccess(state) {
-      return state.isSuccess;
-    }
+    isSuccess: true,
+    activeIdx: 0
   },
   actions: {
     getTextData(context) {
@@ -41,8 +31,8 @@ export const store = new Vuex.Store({
     setTextData(state, payload) {
       state.data = payload;
     },
-    setUser(state, user) {
-      state.user = user;
+    setUser(state, payload) {
+      state.user = payload;
       state.isSuccess = false;
     },
     insertRank(state) {
@@ -62,7 +52,7 @@ export const store = new Vuex.Store({
       }, 1000);
     },
     updateRank(state) {
-      let newRank = state.rank.map(user => user.user === this.user ? { ...user, time: this.time } : user);
+      let newRank = state.rank.map(user => user.user === state.user ? { ...user, time: state.time } : user);
       state.rank = util.sortRank(newRank);
     },
     stopTimer(state) {
@@ -70,6 +60,16 @@ export const store = new Vuex.Store({
     },
     resetTyping(state) {
       state.isSuccess = true;
+      state.user = '';
+      state.time = 0;
+    },
+    complete(state) {
+      state.activeIdx++;
+      if(state.activeIdx > state.data.length) {
+        store.commit('stopTimer');
+        store.commit('resetTyping');
+        state.activeIdx = 0;
+      }
     }
   }
 });

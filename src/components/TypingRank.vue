@@ -3,13 +3,26 @@
         <h2>RANKING</h2>
         <ul>
             <li
-                v-for="(user, index) in this.$store.state.rank"
+                v-for="(user, index) in rank"
                 :key="index">
-                {{ index+1 }} {{ user.user }} {{ user.time|hhmmss }}
+                {{ index+1 }} {{ user.user }} {{ user.time | hhmmss }}
             </li>
         </ul>
     </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    computed: {
+        ...mapState([
+            'rank'
+        ])
+    }
+
+}
+</script>
 
 <style scoped lang="scss">
 li{
