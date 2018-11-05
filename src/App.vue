@@ -1,37 +1,12 @@
 <template>
-  <div id="app">
-    <TypingHeader/>
-    <TypingInputUser/>
-    <TypingTimer/>
-    <TypingContents/>
-    <TypingRank/>
+  <div>
+    <ul class="nav">
+      <li><router-link to="/">Typing</router-link></li>
+      <li><router-link to="/login">Login</router-link></li>
+    </ul>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import TypingHeader from './components/TypingHeader.vue'
-import TypingInputUser from './components/TypingInputUser.vue'
-import TypingContents from './components/TypingContents.vue'
-import TypingTimer from './components/TypingTimer.vue'
-import TypingRank from './components/TypingRank.vue'
-
-export default {
-  name: 'app',
-  components: {
-    TypingHeader,
-    TypingInputUser,
-    TypingContents,
-    TypingTimer,
-    TypingRank
-  },
-  data() {
-    return {
-      time: 0,
-      myTimer: null,
-    }
-  }
-}
-</script>
 
 <style lang="scss">
 body {
@@ -47,6 +22,13 @@ ul {
   margin: 0;
   list-style: none;
 }
+h1 {
+    margin: 3rem 0;
+    color: seagreen;
+}
+a {
+  text-decoration: none;
+}
 .inputBox {
   background: #fff;
   height: 50px;
@@ -60,5 +42,25 @@ ul {
 }
 .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+}
+.nav {
+  width: 100%;
+  text-align: right;
+  li {
+    display: inline-block;
+    font-weight: bold;
+    &:not(:last-child):after {
+      content: '|';
+      padding: 0 0.2rem;
+    }
+    a {
+      color: inherit;
+    }
+  }
+  &:after {
+    content: '';
+    clear: both;
+    display: table;
+  }
 }
 </style>

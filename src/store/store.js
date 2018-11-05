@@ -36,7 +36,7 @@ export const store = new Vuex.Store({
       state.isSuccess = false;
     },
     insertRank(state) {
-      let newRank = [
+      const newRank = [
         ...state.rank,
         {
           user: state.user,
@@ -52,7 +52,7 @@ export const store = new Vuex.Store({
       }, 1000);
     },
     updateRank(state) {
-      let newRank = state.rank.map(user => user.user === state.user ? { ...user, time: state.time } : user);
+      const newRank = state.rank.map(user => user.user === state.user ? { ...user, time: state.time } : user);
       state.rank = util.sortRank(newRank);
     },
     stopTimer(state) {
