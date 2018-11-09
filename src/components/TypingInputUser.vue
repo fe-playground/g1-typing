@@ -2,7 +2,7 @@
     <div class="inputBox shadow">
         <input
             type="text"
-            v-model="name"
+            v-model="user"
             :readonly="!isSuccess"
             @keyup.enter="start"
             placeholder="사용자 이름 입력"
@@ -14,36 +14,41 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
-    data() {
-      return {
-        name: ''
-      }
-    },
     computed: {
+      user: {
+        get() {
+          return this.$store.state.user
+        },
+        set(value) {
+          this.$store.commit('setUser', value)
+        }
+      },
       ...mapState([
-        'user',
         'isSuccess',
         'rank'
       ])
     },
     methods: {
-      ...mapActions([
-        'startTyping'
-      ]),
+      startTyping() {
+        this.$store.commit('startTimer');
+        this.$store.commit('insertRank');
+        this.$store.commit('setSuccessed');
+      },
       ...mapMutations([
-        'startTimer'
+        'startTimer',
+        'insertRank',
+        'setSuccessed'
       ]),
       start() {
-        if(!this.name) {
+        if(!this.user.trim()) {
           alert('사용자 이름을 등록해주세요.')
-        } else if(this.checkDuplicatedName(this.name)) {
+        } else if(this.checkDuplicatedName(this.user)) {
           alert('이미 등록된 이름입니다.')
         } else {
-          this.$store.dispatch('startTyping', this.name);
-          this.$store.commit('startTimer');
+          this.startTyping();
         }
       },
       checkDuplicatedName(name) {
@@ -52,7 +57,7 @@ export default {
     },
     watch: {
       isSuccess() {
-        if(this.isSuccess) this.name = '';
+        if(this.isSuccess) this.user = '';
       }
     }
 }

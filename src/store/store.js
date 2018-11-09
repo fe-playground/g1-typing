@@ -22,10 +22,6 @@ export const store = new Vuex.Store({
           context.commit('setTextData', res.data);
         })
     },
-    startTyping(context, payload) {
-      context.commit('setUser', payload);
-      context.commit('insertRank');
-    }
   },
   mutations: {
     setTextData(state, payload) {
@@ -33,6 +29,8 @@ export const store = new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setSuccessed(state) {
       state.isSuccess = false;
     },
     insertRank(state) {
