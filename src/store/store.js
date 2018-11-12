@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import * as util from '../utils/util'
+import * as util from '@/utils/util'
 
 Vue.use(Vuex);
 
