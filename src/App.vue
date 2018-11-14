@@ -2,16 +2,41 @@
   <div>
     <Navbar/>
     <router-view/>
+    <ModalAlert v-if="showAlert" :alertData="alertData" @close="close"/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import ModalAlert from '@/components/ModalAlert.vue'
+import { EventBus } from '@/utils/bus'
 
 export default {
   name: 'app',
   components: {
-    Navbar
+    Navbar,
+    ModalAlert
+  },
+  data() {
+    return {
+      showAlert: false,
+      alertData: null
+    }
+  },
+  methods: {
+    setAlertData(alertData) {
+      this.alertData = alertData;
+      this.showAlert = true;
+    },
+    close() {
+      this.showAlert = false
+    }
+  },
+  created() {
+    EventBus.$on('modal-alert', this.setAlertData)
+  },
+  destroyed() {
+    EventBus.$off('modal-alert')
   }
 }
 </script>
