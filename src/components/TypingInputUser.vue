@@ -15,7 +15,6 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { EventBus } from '@/utils/bus'
 
 export default {
     computed: {
@@ -46,9 +45,9 @@ export default {
       start() {
         if(!this.user.trim()) {
           // alert('사용자 이름을 등록해주세요.')
-          EventBus.$emit('modal-alert', '사용자 이름을 등록해주세요.')
+          this.$EventBus.$emit('modal-alert', '사용자 이름을 등록해주세요.')
         } else if(this.checkDuplicatedName(this.user)) {
-          EventBus.$emit('modal-alert', '이미 등록된 이름입니다.')
+          this.$EventBus.$emit('modal-alert', '이미 등록된 이름입니다.')
         } else {
           this.startTyping();
         }

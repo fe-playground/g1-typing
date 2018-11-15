@@ -9,7 +9,6 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import ModalAlert from '@/components/ModalAlert.vue'
-import { EventBus } from '@/utils/bus'
 
 export default {
   name: 'app',
@@ -33,10 +32,10 @@ export default {
     }
   },
   created() {
-    EventBus.$on('modal-alert', this.setAlertData)
+    this.$EventBus.$on('modal-alert', this.setAlertData)
   },
   destroyed() {
-    EventBus.$off('modal-alert')
+    this.$EventBus.$off('modal-alert')
   }
 }
 </script>
