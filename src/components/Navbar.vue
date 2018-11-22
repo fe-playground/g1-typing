@@ -1,29 +1,35 @@
 <template>
   <ul class="nav">
-    <li><router-link to="/login">Login</router-link></li>
+    <li>
+      <router-link to="/login">Login</router-link>
+    </li>
     <li v-if="isAuth"><a href="" @click.prevent="logout">Logout</a></li>
-    <li><router-link to="/typing">Typing</router-link></li>
-    <li><router-link to="/board">Board</router-link></li>
+    <li>
+      <router-link to="/typing">Typing</router-link>
+    </li>
+    <li>
+      <router-link to="/board">board</router-link>
+    </li>
   </ul>
 </template>
 
 <script>
-import { setAuthInHeader } from '@/api'
+import { setAuthInHeader } from "@/api";
 
 export default {
   computed: {
     isAuth() {
-      return !!localStorage.getItem('token')
+      return !!localStorage.getItem("token");
     }
   },
   methods: {
     logout() {
-      delete localStorage.token
-      setAuthInHeader(null)
-      this.$router.push('/login')
+      delete localStorage.token;
+      setAuthInHeader(null);
+      this.$router.push("/login");
     }
   }
-}
+};
 </script>
 
 
@@ -35,7 +41,7 @@ export default {
     display: inline-block;
     font-weight: bold;
     &:not(:last-child):after {
-      content: '|';
+      content: "|";
       padding: 0 0.2rem;
     }
     a {
@@ -43,7 +49,7 @@ export default {
     }
   }
   &:after {
-    content: '';
+    content: "";
     clear: both;
     display: table;
   }

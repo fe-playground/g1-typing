@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Navbar/>
-    <router-view/>
-    <ModalAlert v-if="showAlert" :alertData="alertData" @close="close"/>
+    <Navbar />
+    <router-view />
+    <ModalAlert v-if="showAlert" :alertData="alertData" @close="close" />
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import ModalAlert from '@/components/ModalAlert.vue'
+import Navbar from "@/components/Navbar.vue";
+import ModalAlert from "@/components/ModalAlert.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Navbar,
     ModalAlert
@@ -20,7 +20,7 @@ export default {
     return {
       showAlert: false,
       alertData: null
-    }
+    };
   },
   methods: {
     setAlertData(alertData) {
@@ -28,16 +28,16 @@ export default {
       this.showAlert = true;
     },
     close() {
-      this.showAlert = false
+      this.showAlert = false;
     }
   },
   created() {
-    this.$EventBus.$on('modal-alert', this.setAlertData)
+    this.$EventBus.$on("modal-alert", this.setAlertData);
   },
   destroyed() {
-    this.$EventBus.$off('modal-alert')
+    this.$EventBus.$off("modal-alert");
   }
-}
+};
 </script>
 
 
@@ -56,8 +56,8 @@ ul {
   list-style: none;
 }
 h1 {
-    margin: 3rem 0;
-    color: seagreen;
+  margin: 3rem 0;
+  color: seagreen;
 }
 a {
   text-decoration: none;
