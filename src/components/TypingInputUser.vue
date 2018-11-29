@@ -31,7 +31,6 @@ export default {
     },
     start() {
       if (!this.user.trim()) {
-        // alert('사용자 이름을 등록해주세요.')
         this.$EventBus.$emit("modal-alert", "사용자 이름을 등록해주세요.");
       } else if (this.checkDuplicatedName(this.user)) {
         this.$EventBus.$emit("modal-alert", "이미 등록된 이름입니다.");
